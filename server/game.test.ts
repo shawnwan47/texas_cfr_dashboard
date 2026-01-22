@@ -176,9 +176,11 @@ describe("game router", () => {
       const decision = await caller.game.getAIDecision({ sessionId });
 
       expect(decision).toHaveProperty("recommendedAction");
-      expect(decision).toHaveProperty("allDecisions");
-      expect(decision.allDecisions).toHaveLength(4);
-      expect(["fold", "check", "call", "bet"]).toContain(decision.recommendedAction);
+      expect(decision).toHaveProperty("confidence");
+      expect(decision).toHaveProperty("explanation");
+      expect(["fold", "check", "raise"]).toContain(decision.recommendedAction);
+      expect(decision.confidence).toBeGreaterThanOrEqual(0);
+      expect(decision.confidence).toBeLessThanOrEqual(1);
     });
   });
 
