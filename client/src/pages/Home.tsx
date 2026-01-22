@@ -26,7 +26,13 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 
+import { useAuth } from "@/_core/hooks/useAuth";
+
 export default function Home() {
+  // The userAuth hooks provides authentication state
+  // To implement login/logout functionality, simply call logout() or redirect to getLoginUrl()
+  let { user, loading, error, isAuthenticated, logout } = useAuth();
+
   const fadeInUp = {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
@@ -434,6 +440,31 @@ export default function Home() {
                   </TabsContent>
                 ))}
               </Tabs>
+            </motion.section>
+
+            {/* 游戏入口 */}
+            <motion.section 
+              id="play"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <div className="text-center py-12">
+                <h2 className="text-3xl font-bold mb-4 flex items-center justify-center gap-3">
+                  <Zap className="w-8 h-8 text-primary" />
+                  立即对战
+                </h2>
+                <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
+                  准备好挑战 Deep CFR AI 了吗？进入游戏，与这个强大的扑克 AI 对战，
+                  体验深度强化学习算法的威力。
+                </p>
+                <a href="/game" className="inline-block">
+                  <button className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors">
+                    开始游戏
+                  </button>
+                </a>
+              </div>
             </motion.section>
 
             {/* Footer */}
